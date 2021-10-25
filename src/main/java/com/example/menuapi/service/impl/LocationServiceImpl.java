@@ -7,6 +7,7 @@ import com.example.menuapi.service.LocationService;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class LocationServiceImpl implements LocationService {
@@ -18,13 +19,23 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public Location getById(Location location) {
+    public Optional<Location> getById(Location location) {
         return inquireById(location);
     }
 
-    private Location inquireById(Location location) {
+    @Override
+    public Location getByLongitudeAndLatitude(Location location) {
         validateLocation(location);
-        return locationRepository.findById(location);
+        return inquireByLongitudeAndLatitude(location);
+    }
+
+    private Location inquireByLongitudeAndLatitude(Location location) {
+        return locationRepository.findByLatitudeAndLongitude(location.getLatitude(), location.getLongitude());
+    }
+
+    private Optional<Location> inquireById(Location location) {
+        validateLocation(location);
+        return locationRepository.findById(location.getId());
     }
 
     @Override
@@ -34,11 +45,11 @@ public class LocationServiceImpl implements LocationService {
     }
 
     private Location updateOrCreateOne(Location location) {
-        Location locationById = this.getById(location);
-        if (Objects.isNull(locationById))
+        Location storedLocation = inquireByLongitudeAndLatitude(location);
+        if (Objects.isNull(storedLocation))
             return locationRepository.save(location);
         else
-            return locationById;
+            return storedLocation;
     }
 
     private void validateLocation(Location location) {

@@ -24,10 +24,10 @@ public class Restaurant {
     @Column(name = "image_url")
     private String imageUrl;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     private Location location;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @MapsId
     private Menu menu;
 }

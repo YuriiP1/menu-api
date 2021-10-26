@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "restaurant")
@@ -26,7 +25,6 @@ public class Restaurant {
     private String imageUrl;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
     private Location location;
 
     @OneToOne(fetch = FetchType.LAZY)

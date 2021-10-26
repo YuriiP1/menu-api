@@ -29,7 +29,7 @@ public class Restaurant {
     @MapsId
     private Location location;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
-    private Menu menu;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "restaurant_id")
+    private List<MenuCategory> menuCategories;
 }

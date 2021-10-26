@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "restaurant")
@@ -26,10 +25,9 @@ public class Restaurant {
     private String imageUrl;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
     private Location location;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "restaurant_id")
-    private List<MenuCategory> menuCategories;
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    private Menu menu;
 }

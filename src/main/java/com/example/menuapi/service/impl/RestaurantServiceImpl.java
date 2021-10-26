@@ -1,8 +1,12 @@
 package com.example.menuapi.service.impl;
 
 import com.example.menuapi.exception.entity.ValidationException;
+import com.example.menuapi.mapper.RestaurantMapper;
+import com.example.menuapi.model.Location;
 import com.example.menuapi.model.Restaurant;
+import com.example.menuapi.model.dto.RestaurantRequest;
 import com.example.menuapi.repo.RestaurantRepository;
+import com.example.menuapi.service.LocationService;
 import com.example.menuapi.service.RestaurantService;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +17,13 @@ import java.util.Objects;
 public class RestaurantServiceImpl implements RestaurantService {
 
     private final RestaurantRepository restaurantRepository;
+    private final RestaurantMapper restaurantMapper;
+    private final LocationService locationService;
 
-    public RestaurantServiceImpl(RestaurantRepository restaurantRepository) {
+    public RestaurantServiceImpl(RestaurantRepository restaurantRepository, RestaurantMapper restaurantMapper, LocationService locationService) {
         this.restaurantRepository = restaurantRepository;
+        this.restaurantMapper = restaurantMapper;
+        this.locationService = locationService;
     }
 
     @Override
@@ -42,6 +50,14 @@ public class RestaurantServiceImpl implements RestaurantService {
                 return this.getByName(name);
         else
             return this.getById(id);
+    }
+
+    @Override
+    public Restaurant createAndStoreRestaurant(RestaurantRequest request) {
+        Location location = locationService.createAndStoreLocation(request.getLocation());
+        request.setLocation(location);
+        Restaurant restaurant = restaurantMapper.convertDtoToEntity(request);
+        return restaurantRepository.save(restaurant);
     }
 
     private Restaurant inquireByIdAndName(Long id, String name) {

@@ -30,14 +30,4 @@ public class RestaurantController {
                                                     @RequestParam(value = "name", required = false) String name) {
         return new ResponseEntity<>(restaurantService.inquireBySelectedParameter(id, name), HttpStatus.OK);
     }
-
-//        @GetMapping("/{id}")
-//    public ResponseEntity<Restaurant> getById(@PathVariable(value = "id") Long id) {
-//        return new ResponseEntity<>(restaurantService.getById(id), HttpStatus.OK);
-//    }
-//
-//    @GetMapping("/{name}")
-//    public ResponseEntity<Restaurant> getByName(@PathVariable(value = "name") String name) {
-//        return new ResponseEntity<>(restaurantService.getByName(name), HttpStatus.OK);
-//    }
 }

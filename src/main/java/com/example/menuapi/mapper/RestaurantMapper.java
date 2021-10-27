@@ -2,10 +2,15 @@ package com.example.menuapi.mapper;
 
 import com.example.menuapi.model.Restaurant;
 import com.example.menuapi.model.dto.RestaurantRequest;
+import com.example.menuapi.model.dto.RestaurantResponse;
 import org.mapstruct.Mapper;
+
+import java.util.List;
 
 @Mapper
 public interface RestaurantMapper {
 
-    Restaurant convertDtoToEntity(RestaurantRequest request);
+    Restaurant convertRequestToEntity(RestaurantRequest request);
+
+    List<Restaurant> convertResponseToEntity(List<RestaurantResponse> response);
 }

@@ -2,15 +2,18 @@ package com.example.menuapi.mapper;
 
 import com.example.menuapi.model.Restaurant;
 import com.example.menuapi.model.dto.RestaurantRequest;
+import com.example.menuapi.model.dto.RestaurantResponse;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Component
 public class RestaurantMapperImpl implements RestaurantMapper{
 
     @Override
-    public Restaurant convertDtoToEntity(RestaurantRequest request) {
+    public Restaurant convertRequestToEntity(RestaurantRequest request) {
         if (Objects.isNull(request))
             return null;
         Restaurant restaurant = new Restaurant();
@@ -19,5 +22,17 @@ public class RestaurantMapperImpl implements RestaurantMapper{
         restaurant.setLocation(request.getLocation());
         restaurant.setMenu(request.getMenu());
         return restaurant;
+    }
+
+    @Override
+    public List<Restaurant> convertResponseToEntity(List<RestaurantResponse> response) {
+        List<Restaurant> restaurants = new ArrayList<>();
+        response.forEach(restaurantResponse -> {
+            Restaurant restaurant = new Restaurant();
+            restaurant.setName(restaurantResponse.getName());
+            restaurant.setLocation(restaurantResponse.getLocation());
+            restaurants.add(restaurant);
+        });
+        return restaurants;
     }
 }

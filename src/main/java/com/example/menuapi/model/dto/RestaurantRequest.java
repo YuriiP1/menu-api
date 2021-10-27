@@ -9,10 +9,7 @@ import javax.validation.constraints.NotNull;
 
 
 @Data
-public class RestaurantRequest {
-
-//    @NotNull(message = "Id shouldn't be null")
-//    private Long id;
+public class RestaurantRequest { ;
 
     @NotNull(message = "Name shouldn't be null")
     @NotBlank(message = "Name should have at least 1 symbol")
@@ -22,10 +19,8 @@ public class RestaurantRequest {
     private String imageUrl;
 
     @NotNull(message = "Location is required")
-//    @NotBlank(message = "Each restaurant should have location")
     private Location location;
 
 //    @NotNull(message = "Menu is required")
-//    @NotBlank(message = "Each restaurant should have menu")
     private Menu menu;
 }

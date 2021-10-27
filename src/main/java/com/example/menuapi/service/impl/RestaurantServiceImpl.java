@@ -5,6 +5,7 @@ import com.example.menuapi.mapper.RestaurantMapper;
 import com.example.menuapi.model.Location;
 import com.example.menuapi.model.Restaurant;
 import com.example.menuapi.model.dto.RestaurantRequest;
+import com.example.menuapi.model.dto.RestaurantResponse;
 import com.example.menuapi.repo.RestaurantRepository;
 import com.example.menuapi.service.LocationService;
 import com.example.menuapi.service.RestaurantService;
@@ -27,8 +28,8 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List<Restaurant> getAll() {
-        return inquireAll(restaurantRepository.findAll());
+    public List<Restaurant> getAll(Boolean isMainPage) {
+        return isMainPage ? inquireRestaurantsNameAndLocation() : inquireAll();
     }
 
     @Override
@@ -56,7 +57,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     public Restaurant createAndStoreRestaurant(RestaurantRequest request) {
         Location location = locationService.createAndStoreLocation(request.getLocation());
         request.setLocation(location);
-        Restaurant restaurant = restaurantMapper.convertDtoToEntity(request);
+        Restaurant restaurant = restaurantMapper.convertRequestToEntity(request);
         return restaurantRepository.save(restaurant);
     }
 
@@ -67,7 +68,18 @@ public class RestaurantServiceImpl implements RestaurantService {
                 );
     }
 
-    private List<Restaurant> inquireAll(List<Restaurant> restaurants) {
+    private List<Restaurant> inquireRestaurantsNameAndLocation() {
+        List<RestaurantResponse> response = restaurantRepository.findAllNameAndLocation();
+        List<Restaurant> restaurants = restaurantMapper.convertResponseToEntity(response);
+        return validateListOfRestaurant(restaurants);
+    }
+
+    private List<Restaurant> inquireAll() {
+        List<Restaurant> restaurants = restaurantRepository.findAll();
+        return validateListOfRestaurant(restaurants);
+    }
+
+    private List<Restaurant> validateListOfRestaurant(List<Restaurant> restaurants) {
         if (restaurants.isEmpty())
             throw new ValidationException("There is no restaurants!!!");
         return restaurants;

@@ -4,6 +4,7 @@ import com.example.menuapi.model.Restaurant;
 import com.example.menuapi.model.dto.RestaurantRequest;
 import com.example.menuapi.service.RestaurantService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +22,8 @@ public class RestaurantController {
     }
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<Restaurant>> getAll() {
-        return new ResponseEntity<>(restaurantService.getAll(), HttpStatus.OK);
+    public ResponseEntity<List<Restaurant>> getAll(@RequestParam(value = "isMainPage", defaultValue = "true") boolean isMainPage) {
+        return new ResponseEntity<>(restaurantService.getAll(isMainPage), HttpStatus.OK);
     }
 
     @GetMapping
@@ -35,14 +36,4 @@ public class RestaurantController {
     public ResponseEntity<Restaurant> createRestaurant(@RequestBody @Validated RestaurantRequest request) {
         return new ResponseEntity<>(restaurantService.createAndStoreRestaurant(request), HttpStatus.OK);
     }
-
-//        @GetMapping("/{id}")
-//    public ResponseEntity<Restaurant> getById(@PathVariable(value = "id") Long id) {
-//        return new ResponseEntity<>(restaurantService.getById(id), HttpStatus.OK);
-//    }
-//
-//    @GetMapping("/{name}")
-//    public ResponseEntity<Restaurant> getByName(@PathVariable(value = "name") String name) {
-//        return new ResponseEntity<>(restaurantService.getByName(name), HttpStatus.OK);
-//    }
 }

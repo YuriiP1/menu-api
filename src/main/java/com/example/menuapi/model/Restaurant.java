@@ -14,6 +14,7 @@ import javax.persistence.*;
 public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "restaurant_id")
     private Long id;
 
     @Basic
@@ -25,9 +26,10 @@ public class Restaurant {
     private String imageUrl;
 
     @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "location_id", referencedColumnName = "location_id")
     private Location location;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @MapsId
+    @JoinColumn(name = "menu_id", referencedColumnName = "menu_id")
     private Menu menu;
 }

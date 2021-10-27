@@ -15,6 +15,7 @@ public class MenuItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "menu_item_id")
     private Long id;
 
     @Basic
@@ -28,4 +29,8 @@ public class MenuItem {
     @Basic
     @Column(name = "price")
     private Double price;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "menu_category_id", nullable = false)
+    private MenuCategory menuCategory;
 }

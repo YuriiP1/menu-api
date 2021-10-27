@@ -3,11 +3,13 @@ package com.example.menuapi.service.impl;
 import com.example.menuapi.exception.entity.ValidationException;
 import com.example.menuapi.mapper.RestaurantMapper;
 import com.example.menuapi.model.Location;
+import com.example.menuapi.model.Menu;
 import com.example.menuapi.model.Restaurant;
 import com.example.menuapi.model.dto.RestaurantRequest;
 import com.example.menuapi.model.dto.RestaurantResponse;
 import com.example.menuapi.repo.RestaurantRepository;
 import com.example.menuapi.service.LocationService;
+import com.example.menuapi.service.MenuService;
 import com.example.menuapi.service.RestaurantService;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +22,13 @@ public class RestaurantServiceImpl implements RestaurantService {
     private final RestaurantRepository restaurantRepository;
     private final RestaurantMapper restaurantMapper;
     private final LocationService locationService;
+    private final MenuService menuService;
 
-    public RestaurantServiceImpl(RestaurantRepository restaurantRepository, RestaurantMapper restaurantMapper, LocationService locationService) {
+    public RestaurantServiceImpl(RestaurantRepository restaurantRepository, RestaurantMapper restaurantMapper, LocationService locationService, MenuService menuService) {
         this.restaurantRepository = restaurantRepository;
         this.restaurantMapper = restaurantMapper;
         this.locationService = locationService;
+        this.menuService = menuService;
     }
 
     @Override
@@ -56,7 +60,9 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public Restaurant createAndStoreRestaurant(RestaurantRequest request) {
         Location location = locationService.createAndStoreLocation(request.getLocation());
+        Menu menu = menuService.createAndStoreMenu(request.getMenu());
         request.setLocation(location);
+        request.setMenu(menu);
         Restaurant restaurant = restaurantMapper.convertRequestToEntity(request);
         return restaurantRepository.save(restaurant);
     }

@@ -2,6 +2,7 @@ package com.example.menuapi.api;
 
 import com.example.menuapi.model.Restaurant;
 import com.example.menuapi.model.dto.RestaurantRequest;
+import com.example.menuapi.model.dto.RestaurantResponse;
 import com.example.menuapi.service.RestaurantService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,7 +34,7 @@ public class RestaurantController {
     }
 
     @PostMapping
-    public ResponseEntity<Restaurant> createRestaurant(@RequestBody @Validated RestaurantRequest request) {
+    public ResponseEntity<RestaurantResponse> createRestaurant(@RequestBody @Validated RestaurantRequest request) {
         return new ResponseEntity<>(restaurantService.createAndStoreRestaurant(request), HttpStatus.OK);
     }
 }

@@ -58,13 +58,24 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public Restaurant createAndStoreRestaurant(RestaurantRequest request) {
+    public RestaurantResponse createAndStoreRestaurant(RestaurantRequest request) {
+        checkIfExist(request);
         Location location = locationService.createAndStoreLocation(request.getLocation());
-        Menu menu = menuService.createAndStoreMenu(request.getMenu());
         request.setLocation(location);
-        request.setMenu(menu);
+        request.setMenu(menuService.createAndStoreMenu());
         Restaurant restaurant = restaurantMapper.convertRequestToEntity(request);
-        return restaurantRepository.save(restaurant);
+        Restaurant savedRestaurant = restaurantRepository.save(restaurant);
+        return buildResponseAfterPersist(savedRestaurant);
+    }
+
+    private void checkIfExist(RestaurantRequest request) {
+        Location checkedLocation = locationService.getByLongitudeAndLatitude(request.getLocation());
+        if (Objects.nonNull(checkedLocation))
+            throw new ValidationException("Restaurant with this location parameters already exist: longitude - " + request.getLocation().getLongitude() + ", latitude - " + request.getLocation().getLatitude());
+    }
+
+    private RestaurantResponse buildResponseAfterPersist(Restaurant restaurant) {
+        return restaurantMapper.convertEntityToResponse(restaurant);
     }
 
     private Restaurant inquireByIdAndName(Long id, String name) {

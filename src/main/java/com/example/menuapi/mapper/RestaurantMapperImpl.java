@@ -35,4 +35,12 @@ public class RestaurantMapperImpl implements RestaurantMapper{
         });
         return restaurants;
     }
+
+    @Override
+    public RestaurantResponse convertEntityToResponse(Restaurant restaurant) {
+        RestaurantResponse response = new RestaurantResponse();
+        response.setName(restaurant.getName());
+        response.setLocation(restaurant.getLocation());
+        return  response;
+    }
 }

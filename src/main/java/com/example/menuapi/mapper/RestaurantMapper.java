@@ -13,4 +13,6 @@ public interface RestaurantMapper {
     Restaurant convertRequestToEntity(RestaurantRequest request);
 
     List<Restaurant> convertResponseToEntity(List<RestaurantResponse> response);
+
+    RestaurantResponse convertEntityToResponse(Restaurant restaurant);
 }

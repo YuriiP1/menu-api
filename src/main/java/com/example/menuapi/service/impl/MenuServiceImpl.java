@@ -15,7 +15,8 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public Menu createAndStoreMenu(Menu menu) {
+    public Menu createAndStoreMenu() {
+        Menu menu = new Menu();
         return menuRepository.save(menu);
     }
 }

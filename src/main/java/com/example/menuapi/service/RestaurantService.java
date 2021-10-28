@@ -2,6 +2,7 @@ package com.example.menuapi.service;
 
 import com.example.menuapi.model.Restaurant;
 import com.example.menuapi.model.dto.RestaurantRequest;
+import com.example.menuapi.model.dto.RestaurantResponse;
 
 import java.util.List;
 
@@ -15,5 +16,5 @@ public interface RestaurantService {
 
     Restaurant inquireBySelectedParameter(Long id, String name);
 
-    Restaurant createAndStoreRestaurant(RestaurantRequest restaurant);
+    RestaurantResponse createAndStoreRestaurant(RestaurantRequest restaurant);
 }

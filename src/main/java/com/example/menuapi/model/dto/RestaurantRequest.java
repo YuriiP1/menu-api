@@ -7,8 +7,7 @@ import lombok.Data;
 
 @Data
 @Builder
-public class RestaurantRequest { ;
-
+public class RestaurantRequest {
     private String name;
     private String imageUrl;
     private Location location;

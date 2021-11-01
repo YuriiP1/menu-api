@@ -10,6 +10,7 @@ import com.example.menuapi.repo.RestaurantRepository;
 import com.example.menuapi.service.LocationService;
 import com.example.menuapi.service.MenuService;
 import com.example.menuapi.service.RestaurantService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

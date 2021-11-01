@@ -8,6 +8,7 @@ import com.example.menuapi.repo.MenuRepository;
 import com.example.menuapi.service.MenuCategoryService;
 import com.example.menuapi.service.MenuService;
 import com.example.menuapi.service.RestaurantService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,7 +18,7 @@ public class MenuServiceImpl implements MenuService {
     private final RestaurantService restaurantService;
     private final MenuCategoryService menuCategoryService;
 
-    public MenuServiceImpl(MenuRepository menuRepository, RestaurantService restaurantService, MenuCategoryService menuCategoryService) {
+    public MenuServiceImpl(MenuRepository menuRepository, @Lazy RestaurantService restaurantService, MenuCategoryService menuCategoryService) {
         this.menuRepository = menuRepository;
         this.restaurantService = restaurantService;
         this.menuCategoryService = menuCategoryService;

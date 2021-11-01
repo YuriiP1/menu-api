@@ -3,7 +3,6 @@ package com.example.menuapi.service.impl;
 import com.example.menuapi.exception.entity.ValidationException;
 import com.example.menuapi.mapper.RestaurantMapper;
 import com.example.menuapi.model.Location;
-import com.example.menuapi.model.Menu;
 import com.example.menuapi.model.Restaurant;
 import com.example.menuapi.model.dto.RestaurantRequest;
 import com.example.menuapi.model.dto.RestaurantResponse;
@@ -11,6 +10,7 @@ import com.example.menuapi.repo.RestaurantRepository;
 import com.example.menuapi.service.LocationService;
 import com.example.menuapi.service.MenuService;
 import com.example.menuapi.service.RestaurantService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -58,13 +58,32 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public Restaurant createAndStoreRestaurant(RestaurantRequest request) {
+    public RestaurantResponse createAndStoreRestaurant(RestaurantRequest request) {
+        checkIfExist(request);
         Location location = locationService.createAndStoreLocation(request.getLocation());
-        Menu menu = menuService.createAndStoreMenu(request.getMenu());
         request.setLocation(location);
-        request.setMenu(menu);
+        request.setMenu(menuService.createAndStoreMenu());
         Restaurant restaurant = restaurantMapper.convertRequestToEntity(request);
-        return restaurantRepository.save(restaurant);
+        Restaurant savedRestaurant = restaurantRepository.save(restaurant);
+        return buildResponseAfterPersist(savedRestaurant);
+    }
+
+    @Override
+    public Restaurant findByNameAndLocation(RestaurantRequest restaurant) {
+        return restaurantRepository.findByNameAndLatitudeAndLongitude(restaurant.getName(), restaurant.getLatitude(), restaurant.getLongitude())
+                .orElseThrow(
+                        () -> new ValidationException("Restaurant with these parameters does not exist: name - " + restaurant.getName() + ", latitude - " + restaurant.getLatitude() + ", longitude - " + restaurant.getLongitude())
+                );
+    }
+
+    private void checkIfExist(RestaurantRequest request) {
+        Location checkedLocation = locationService.getByLongitudeAndLatitude(request.getLocation());
+        if (Objects.nonNull(checkedLocation))
+            throw new ValidationException("Restaurant with this location parameters already exist: longitude - " + request.getLocation().getLongitude() + ", latitude - " + request.getLocation().getLatitude());
+    }
+
+    private RestaurantResponse buildResponseAfterPersist(Restaurant restaurant) {
+        return restaurantMapper.convertEntityToResponse(restaurant);
     }
 
     private Restaurant inquireByIdAndName(Long id, String name) {

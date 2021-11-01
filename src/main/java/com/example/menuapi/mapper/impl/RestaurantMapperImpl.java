@@ -1,5 +1,6 @@
-package com.example.menuapi.mapper;
+package com.example.menuapi.mapper.impl;
 
+import com.example.menuapi.mapper.RestaurantMapper;
 import com.example.menuapi.model.Restaurant;
 import com.example.menuapi.model.dto.RestaurantRequest;
 import com.example.menuapi.model.dto.RestaurantResponse;
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Component
-public class RestaurantMapperImpl implements RestaurantMapper{
+public class RestaurantMapperImpl implements RestaurantMapper {
 
     @Override
     public Restaurant convertRequestToEntity(RestaurantRequest request) {
@@ -34,5 +35,13 @@ public class RestaurantMapperImpl implements RestaurantMapper{
             restaurants.add(restaurant);
         });
         return restaurants;
+    }
+
+    @Override
+    public RestaurantResponse convertEntityToResponse(Restaurant restaurant) {
+        RestaurantResponse response = new RestaurantResponse();
+        response.setName(restaurant.getName());
+        response.setLocation(restaurant.getLocation());
+        return  response;
     }
 }

@@ -17,4 +17,6 @@ public interface RestaurantService {
     Restaurant inquireBySelectedParameter(Long id, String name);
 
     RestaurantResponse createAndStoreRestaurant(RestaurantRequest restaurant);
+
+    Restaurant findByNameAndLocation(RestaurantRequest restaurantRequest);
 }

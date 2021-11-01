@@ -3,7 +3,6 @@ package com.example.menuapi.service.impl;
 import com.example.menuapi.exception.entity.ValidationException;
 import com.example.menuapi.mapper.RestaurantMapper;
 import com.example.menuapi.model.Location;
-import com.example.menuapi.model.Menu;
 import com.example.menuapi.model.Restaurant;
 import com.example.menuapi.model.dto.RestaurantRequest;
 import com.example.menuapi.model.dto.RestaurantResponse;
@@ -66,6 +65,14 @@ public class RestaurantServiceImpl implements RestaurantService {
         Restaurant restaurant = restaurantMapper.convertRequestToEntity(request);
         Restaurant savedRestaurant = restaurantRepository.save(restaurant);
         return buildResponseAfterPersist(savedRestaurant);
+    }
+
+    @Override
+    public Restaurant findByNameAndLocation(RestaurantRequest restaurant) {
+        return restaurantRepository.findByNameAndLatitudeAndLongitude(restaurant.getName(), restaurant.getLatitude(), restaurant.getLongitude())
+                .orElseThrow(
+                        () -> new ValidationException("Restaurant with these parameters does not exist: name - " + restaurant.getName() + ", latitude - " + restaurant.getLatitude() + ", longitude - " + restaurant.getLongitude())
+                );
     }
 
     private void checkIfExist(RestaurantRequest request) {

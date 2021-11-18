@@ -15,7 +15,7 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 
     Optional<Restaurant> findByIdAndName(Long id, String name);
 
-    @Query("select new com.example.menuapi.model.dto.RestaurantResponse(res.name, res.location) from Restaurant res " +
+    @Query("select new com.example.menuapi.dto.RestaurantResponse(res.name, res.location) from Restaurant res " +
             "order by res.id desc")
     List<RestaurantResponse> findAllNameAndLocation();
 

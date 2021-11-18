@@ -2,8 +2,8 @@ package com.example.menuapi.mapper.impl;
 
 import com.example.menuapi.mapper.RestaurantMapper;
 import com.example.menuapi.model.Restaurant;
-import com.example.menuapi.model.dto.RestaurantRequest;
-import com.example.menuapi.model.dto.RestaurantResponse;
+import com.example.menuapi.dto.RestaurantRequest;
+import com.example.menuapi.dto.RestaurantResponse;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

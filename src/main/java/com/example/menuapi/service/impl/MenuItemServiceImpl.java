@@ -2,7 +2,7 @@ package com.example.menuapi.service.impl;
 
 import com.example.menuapi.mapper.MenuItemMapper;
 import com.example.menuapi.model.MenuItem;
-import com.example.menuapi.model.dto.MenuItemRequest;
+import com.example.menuapi.dto.MenuItemRequest;
 import com.example.menuapi.repo.MenuItemRepository;
 import com.example.menuapi.service.MenuItemService;
 import org.springframework.stereotype.Service;

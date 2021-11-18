@@ -2,8 +2,7 @@ package com.example.menuapi.mapper.impl;
 
 import com.example.menuapi.mapper.MenuItemMapper;
 import com.example.menuapi.model.MenuItem;
-import com.example.menuapi.model.dto.MenuItemRequest;
-import com.example.menuapi.service.MenuItemService;
+import com.example.menuapi.dto.MenuItemRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

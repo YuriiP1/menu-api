@@ -3,14 +3,11 @@ package com.example.menuapi.service.impl;
 import com.example.menuapi.mapper.MenuCategoryMapper;
 import com.example.menuapi.model.Menu;
 import com.example.menuapi.model.MenuCategory;
-import com.example.menuapi.model.dto.MenuCategoryRequest;
-import com.example.menuapi.model.dto.MenuItemRequest;
+import com.example.menuapi.dto.MenuCategoryRequest;
 import com.example.menuapi.repo.MenuCategoryRepository;
 import com.example.menuapi.service.MenuCategoryService;
 import com.example.menuapi.service.MenuItemService;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class MenuCategoryServiceImpl implements MenuCategoryService {

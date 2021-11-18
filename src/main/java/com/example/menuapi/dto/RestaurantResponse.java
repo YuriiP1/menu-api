@@ -1,4 +1,4 @@
-package com.example.menuapi.model.dto;
+package com.example.menuapi.dto;
 
 import com.example.menuapi.model.Location;
 import lombok.AllArgsConstructor;

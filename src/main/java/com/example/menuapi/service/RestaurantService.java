@@ -1,8 +1,8 @@
 package com.example.menuapi.service;
 
 import com.example.menuapi.model.Restaurant;
-import com.example.menuapi.model.dto.RestaurantRequest;
-import com.example.menuapi.model.dto.RestaurantResponse;
+import com.example.menuapi.dto.RestaurantRequest;
+import com.example.menuapi.dto.RestaurantResponse;
 
 import java.util.List;
 

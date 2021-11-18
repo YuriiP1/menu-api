@@ -1,7 +1,7 @@
 package com.example.menuapi.mapper;
 
 import com.example.menuapi.model.MenuCategory;
-import com.example.menuapi.model.dto.MenuCategoryRequest;
+import com.example.menuapi.dto.MenuCategoryRequest;
 import org.mapstruct.Mapper;
 
 @Mapper

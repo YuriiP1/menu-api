@@ -1,4 +1,4 @@
-package com.example.menuapi.model.dto;
+package com.example.menuapi.dto;
 
 import lombok.Data;
 

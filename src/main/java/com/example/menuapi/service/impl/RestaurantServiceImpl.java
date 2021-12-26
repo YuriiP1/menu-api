@@ -4,13 +4,12 @@ import com.example.menuapi.exception.entity.ValidationException;
 import com.example.menuapi.mapper.RestaurantMapper;
 import com.example.menuapi.model.Location;
 import com.example.menuapi.model.Restaurant;
-import com.example.menuapi.model.dto.RestaurantRequest;
-import com.example.menuapi.model.dto.RestaurantResponse;
+import com.example.menuapi.dto.RestaurantRequest;
+import com.example.menuapi.dto.RestaurantResponse;
 import com.example.menuapi.repo.RestaurantRepository;
 import com.example.menuapi.service.LocationService;
 import com.example.menuapi.service.MenuService;
 import com.example.menuapi.service.RestaurantService;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

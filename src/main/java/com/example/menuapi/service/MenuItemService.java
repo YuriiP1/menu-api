@@ -1,6 +1,6 @@
 package com.example.menuapi.service;
 
-import com.example.menuapi.model.dto.MenuItemRequest;
+import com.example.menuapi.dto.MenuItemRequest;
 
 import java.util.List;
 

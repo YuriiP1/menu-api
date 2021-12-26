@@ -1,11 +1,10 @@
 package com.example.menuapi.api;
 
 import com.example.menuapi.model.Restaurant;
-import com.example.menuapi.model.dto.RestaurantRequest;
-import com.example.menuapi.model.dto.RestaurantResponse;
+import com.example.menuapi.dto.RestaurantRequest;
+import com.example.menuapi.dto.RestaurantResponse;
 import com.example.menuapi.service.RestaurantService;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;

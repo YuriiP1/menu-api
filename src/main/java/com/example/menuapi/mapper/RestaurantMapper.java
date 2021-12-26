@@ -1,8 +1,8 @@
 package com.example.menuapi.mapper;
 
 import com.example.menuapi.model.Restaurant;
-import com.example.menuapi.model.dto.RestaurantRequest;
-import com.example.menuapi.model.dto.RestaurantResponse;
+import com.example.menuapi.dto.RestaurantRequest;
+import com.example.menuapi.dto.RestaurantResponse;
 import org.mapstruct.Mapper;
 
 import java.util.List;

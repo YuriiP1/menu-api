@@ -21,7 +21,7 @@ public class RestaurantController {
         this.restaurantService = restaurantService;
     }
 
-    @GetMapping("/getAll")
+    @GetMapping
     public ResponseEntity<List<Restaurant>> getAll(@RequestParam(value = "isMainPage", defaultValue = "true") boolean isMainPage) {
         return new ResponseEntity<>(restaurantService.getAll(isMainPage), HttpStatus.OK);
     }

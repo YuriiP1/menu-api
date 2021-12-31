@@ -12,6 +12,7 @@ import com.example.menuapi.service.MenuService;
 import com.example.menuapi.service.RestaurantService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,7 +32,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List<Restaurant> getAll(Boolean isMainPage) {
+    public List<RestaurantResponse> getAll(Boolean isMainPage) {
         return isMainPage ? inquireRestaurantsNameAndLocation() : inquireAll();
     }
 
@@ -92,15 +93,26 @@ public class RestaurantServiceImpl implements RestaurantService {
                 );
     }
 
-    private List<Restaurant> inquireRestaurantsNameAndLocation() {
+    private List<RestaurantResponse> inquireRestaurantsNameAndLocation() {
         List<RestaurantResponse> response = restaurantRepository.findAllNameAndLocation();
         List<Restaurant> restaurants = restaurantMapper.convertResponseToEntity(response);
-        return validateListOfRestaurant(restaurants);
+        validateListOfRestaurant(restaurants);
+        return enrichResponseBeforeReturn(restaurants);
     }
 
-    private List<Restaurant> inquireAll() {
+    private List<RestaurantResponse> inquireAll() {
         List<Restaurant> restaurants = restaurantRepository.findAll();
-        return validateListOfRestaurant(restaurants);
+        validateListOfRestaurant(restaurants);
+        return enrichResponseBeforeReturn(restaurants);
+    }
+
+    private List<RestaurantResponse> enrichResponseBeforeReturn(List<Restaurant> restaurants) {
+        List<RestaurantResponse> restaurantResponse = new ArrayList<>();
+        restaurants.forEach(restaurant -> {
+            RestaurantResponse convertedRestaurants = restaurantMapper.convertEntityToResponse(restaurant);
+            restaurantResponse.add(convertedRestaurants);
+        });
+        return restaurantResponse;
     }
 
     private List<Restaurant> validateListOfRestaurant(List<Restaurant> restaurants) {

@@ -22,13 +22,13 @@ public class RestaurantController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Restaurant>> getAll(@RequestParam(value = "isMainPage", defaultValue = "true") boolean isMainPage) {
+    public ResponseEntity<List<RestaurantResponse>> getAll(@RequestParam(value = "isMainPage", defaultValue = "true") boolean isMainPage) {
         return new ResponseEntity<>(restaurantService.getAll(isMainPage), HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/parameter")
     public ResponseEntity<Restaurant> getByIdOrName(@RequestParam(value = "id", required = false) Long id,
-                                                    @RequestParam(value = "name", required = false) String name) {
+                                                    @RequestParam(value = "name") String name) {
         return new ResponseEntity<>(restaurantService.inquireBySelectedParameter(id, name), HttpStatus.OK);
     }
 

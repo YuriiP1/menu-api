@@ -20,7 +20,6 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
     List<RestaurantResponse> findAllNameAndLocation();
 
     @Query("select res from Restaurant res, Location loc where res.name = :name " +
-//            "and res.location.id = loc.id " +
             "and loc.latitude = :latitude " +
             "and loc.longitude = :longitude")
     Optional<Restaurant> findByNameAndLatitudeAndLongitude(@RequestParam(name = "name") String name, @RequestParam(name = "latitude") String latitude, @RequestParam("longitude") String longitude);

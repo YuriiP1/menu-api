@@ -40,6 +40,9 @@ public class RestaurantMapperImpl implements RestaurantMapper {
     @Override
     public RestaurantResponse convertEntityToResponse(Restaurant restaurant) {
         RestaurantResponse response = new RestaurantResponse();
+        response.setId(restaurant.getId());
+        response.setImageUrl(restaurant.getImageUrl());
+        response.setMenu(restaurant.getMenu());
         response.setName(restaurant.getName());
         response.setLocation(restaurant.getLocation());
         return  response;

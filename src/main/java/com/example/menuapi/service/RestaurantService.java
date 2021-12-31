@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface RestaurantService {
 
-    List<Restaurant> getAll(Boolean isMainPage);
+    List<RestaurantResponse> getAll(Boolean isMainPage);
 
     Restaurant getById(Long id);
 

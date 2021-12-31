@@ -101,7 +101,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     private List<RestaurantResponse> inquireAll() {
-        List<Restaurant> restaurants = restaurantRepository.findAll();
+        List<Restaurant> restaurants = restaurantRepository.getAllBy();
         validateListOfRestaurant(restaurants);
         return enrichResponseBeforeReturn(restaurants);
     }
